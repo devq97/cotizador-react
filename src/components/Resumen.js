@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { capitalCase } from '../Helper';
+import PropTypes from 'prop-types';
 
 const ContenedorResumen = styled.div`
   padding: 1rem;
@@ -26,6 +27,10 @@ const Resumen = ({datos}) => {
       </ul>
     </ContenedorResumen>
   )
+};
+
+Resumen.protoTypes = {
+  datos: PropTypes.object.isRequired
 };
 
 export default Resumen;
