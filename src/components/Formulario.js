@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "@emotion/styled";
 
 const Campo = styled.div`
@@ -23,12 +23,50 @@ const InputRadio = styled.input`
   margin: 0 1rem;
 `;
 
+const Boton = styled.button`
+  background-color: #00838f;
+  font-size: 16px;
+  width: 100%;
+  padding: 1rem;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+  transition: background-color .3s ease;
+  margin-top: 2rem;
+  
+  &:hover {
+  background-color: #26c6da;
+    cursor: pointer;
+  }
+`;
+
 const Formulario = () => {
+
+  const [datos, guardarDatos] = useState({
+    marca: '',
+    year: '',
+    plan: ''
+  });
+
+  const {marca, year, plan} = datos;
+
+  const obtenerInformacion = e => {
+    guardarDatos({
+      ...datos,
+      [e.target.name] : e.target.value
+    })
+  };
+
   return (
     <form>
       <Campo>
         <Label>Marca</Label>
-        <Select>
+        <Select
+          name="marca"
+          value={marca}
+          onChange={obtenerInformacion}
+        >
           <option value="">-- Seleccione --</option>
           <option value="americano">Americano</option>
           <option value="europeo">Europeo</option>
@@ -37,7 +75,11 @@ const Formulario = () => {
       </Campo>
       <Campo>
         <Label>Año</Label>
-        <Select>
+        <Select
+          name="year"
+          value={year}
+          onChange={obtenerInformacion}
+        >
           <option value="">-- Seleccione --</option>
           <option value="2021">2021</option>
           <option value="2020">2020</option>
@@ -57,19 +99,22 @@ const Formulario = () => {
           type="radio"
           name="plan"
           value="basico"
+          checked={plan === 'basico'}
+          onChange={obtenerInformacion}
         /> Básico
 
         <InputRadio
           type="radio"
           name="plan"
           value="completo"
+          checked={plan === 'completo'}
+          onChange={obtenerInformacion}
         /> Completo
       </Campo>
 
-      <input
+      <Boton
         type="button"
-        value="Cotizar"
-      />
+      >Cotizar</Boton>
     </form>
   )
 
